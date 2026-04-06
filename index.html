@@ -4,6 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lista de Compras</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#4caf50">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Lista">
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: Arial, sans-serif; background: #f5f5f5; color: #222; }
@@ -200,7 +205,7 @@ function copyLink() {
     .catch(()=>showToast('Copie o link da barra acima'));
 }
 
-function setFilter(f,btn) {
+window.setFilter = function(f,btn) {
   currentFilter = f;
   document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
@@ -343,6 +348,9 @@ onSnapshot(DOC_REF, (snap) => {
   document.getElementById('sync-label').textContent = 'Erro de conexão';
   document.getElementById('pulse').classList.add('offline');
 });
+</script>
+<script>
+if("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js");
 </script>
 </body>
 </html>
